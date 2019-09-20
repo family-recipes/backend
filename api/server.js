@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config()
 
 const authRouter = require('../auth/auth-router.js');
+const recipeRouter = require('../recipes/recipes-router.js');
 
 const server = express();
 
@@ -12,5 +13,6 @@ server.use(express.json());
 server.use(cors());
 
 server.use('/api/auth', authRouter);
+server.use('/api', recipeRouter)
 
 module.exports = server;
