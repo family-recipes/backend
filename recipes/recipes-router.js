@@ -3,7 +3,7 @@ const router = require('express').Router();
 const Recipes = require('./recipes-model.js');
 
 // Get all recipes
-router.get('/recipes', (req, res) => {
+router.get('/', (req, res) => {
     Recipes.find()
     .then(recipes => {
         res.json(recipes);
@@ -14,7 +14,7 @@ router.get('/recipes', (req, res) => {
 });
 
 // Get recipe by user id
-router.get('/:user_id/recipes', (req, res) => {
+router.get('/:user_id', (req, res) => {
     const { user_id } = req.params;
 
     Recipes.findByUserId( user_id )
@@ -31,9 +31,9 @@ router.get('/:user_id/recipes', (req, res) => {
 }); 
 
 // Create a new recipe
-router.post('/:user_id/recipes', (req, res) => {
-    const recipeData = {...req.body, user_id: req.params };
-  
+router.post('/', (req, res) => {
+    const recipeData = req.body;
+
     Recipes.add(recipeData)
     .then(recipe => {
         res.status(201).json(recipe);
@@ -44,7 +44,7 @@ router.post('/:user_id/recipes', (req, res) => {
 });
 
 //
-router.put('/:user_id/recipes/:id', (req, res) => {
+router.put('/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
   
@@ -65,7 +65,7 @@ router.put('/:user_id/recipes/:id', (req, res) => {
   });
   
 
-  router.delete('/:user_id/recipes/:id', (req, res) => {
+  router.delete('/:id', (req, res) => {
     const { id } = req.params;
   
     Recipes.remove(id)
