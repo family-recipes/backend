@@ -19,12 +19,10 @@ function findBy(filter) {
 }
 
 function add(recipe) {
-    return db('recipes')
-        .insert(recipe, 'id')
-        .then(ids => {
-        const [id] = ids;
-            return findById(id);
-        });
+    return db('recipes').insert(recipe)
+    .then(ids => {
+        return findById(ids[0]);
+    });
 }
 
 function findById(id) {
@@ -52,7 +50,7 @@ function update(changes, id) {
         } else {
             return null;
         }
-    }) 
+    })
 }
 
 function remove(id) {
@@ -61,10 +59,10 @@ function remove(id) {
         return db('recipes').where({ id }).del()
         .then(count => {
             if (count > 0) {
-                return recipe;
+                 return recipe;
             } else {
                 return null;
             }
         })
     })
-   }
+}

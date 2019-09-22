@@ -13,7 +13,7 @@ server.use(express.json());
 server.use(cors());
 
 server.use('/api/auth', authRouter);
-server.use('/api', recipeRouter);
+server.use('/api/recipes', recipeRouter);
 
 server.get('/', (req, res) => {
     res.status(200).json({ server: 'running!' })
