@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const generateToken = require('./token.js');
 
-const Users = require('../users/user-model.js');
+const Users = require('../helpers/user-model.js');
 
 // Register a new user
 router.post('/register', (req, res) => {
@@ -15,12 +15,18 @@ router.post('/register', (req, res) => {
     .then(saved => {
         const token = generateToken(saved);
         res.status(201).json({
-            user: saved,
+            user: { id:saved.id, username:saved.username },
             token
         });
     })
     .catch(error => {
-        res.status(500).json(error);
+        if (error.errno === 19) {
+            res.status(500).json({
+                message: 'Username is not available.'
+            })
+        } else {
+            res.status(500).json(error);
+        }
     });
 });
 
@@ -35,7 +41,7 @@ router.post('/login', (req, res) => {
             const token = generateToken(user);
 
             res.status(200).json({ 
-                message: `Welcome ${user.username}`,
+                message: `${user.username} logged in.`,
                 token 
             });
         } else {
