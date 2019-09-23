@@ -15,7 +15,11 @@ server.use('/api/auth', authRouter);
 // server.use('/api/recipes', recipeRouter);
 
 server.get('/', (req, res) => {
-    res.status(200).json({ server: 'running!' })
+    try {
+        res.send('Server is running!')
+    } catch(error) {
+        res.status(500).json(error.response);
+    }
 });
 
 module.exports = server;
