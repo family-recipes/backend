@@ -5,49 +5,47 @@ exports.up = function(knex) {
         tbl.increments();
         tbl.string('title', 128).notNullable().unique();
         tbl.string('author', 64);
+        tbl.integer('user_id')
+            .unsigned()
+            .references('id')
+            .inTable('users')
+            .onDelete('CASCADE')
+            .onUpdate('CASCADE')
     })
     .createTable('ingredients', tbl => {
         tbl.increments();
-        tbl.string('ingredient_name', 64).notNullable().unique();
+        tbl.string('ingredient', 64).notNullable();
         // foreign key
         tbl.integer('recipe_id')
-        .unsigned()
-        .notNullable()
-        .references('id')
-        .inTable('recipes');
+            .unsigned()
+            .notNullable()
+            .references('id')
+            .inTable('recipes');
     })
     .createTable('instructions', tbl => {
         tbl.increments();
         tbl.string('instruction').notNullable();
         // foreign key
         tbl.integer('recipe_id')
-        .unsigned()
-        .notNullable()
-        .references('id')
-        .inTable('recipes');
+            .unsigned()
+            .notNullable()
+            .references('id')
+            .inTable('recipes');
     })
     .createTable('categories', tbl => {
         tbl.increments();
-        tbl.string('category_name', 64).notNullable().unique();
-    })
-    .createTable('recipe_categories', tbl => {
+        tbl.string('category', 64).notNullable();
+        // foreign key
         tbl.integer('recipe_id')
             .unsigned()
             .notNullable()
             .references('id')
             .inTable('recipes');
-        tbl.integer('category_id')
-            .unsigned()
-            .notNullable()
-            .references('id')
-            .inTable('categories');
-        tbl.primary(['recipe_id', 'category_id']);
     })
 };
 
 exports.down = function(knex) {
     return knex.schema
-    .dropTableIfExists('recipe_categories')
     .dropTableIfExists('categories')
     .dropTableIfExists('instructions')
     .dropTableIfExists('ingredients')

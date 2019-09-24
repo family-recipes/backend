@@ -5,13 +5,13 @@ module.exports = {
     findBy,
     add,
     findById,
-    findByUserId,
     update,
     remove
 };
 
 function find() {
-    return db('recipes').select('title', 'author', 'image', 'ingredients', 'instructions', 'category');
+    return db('recipes')
+    .join('ingredients', 'recipes.id', 'ingredients.recipe_id')
 }
 
 function findBy(filter) {
@@ -28,12 +28,6 @@ function add(recipe) {
 function findById(id) {
     return db('recipes')
         .where({ id })
-        .first();
-}
-
-function findByUserId(user_id) {
-    return db('recipes')
-        .where({ user_id })
         .first();
 }
 
