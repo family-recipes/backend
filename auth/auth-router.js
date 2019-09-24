@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const generateToken = require('./token.js');
 
-const Users = require('../helpers/user-model.js');
+const Users = require('../data/models/user-model.js');
 
 // Register a new user
 router.post('/register', (req, res) => {
@@ -12,10 +12,11 @@ router.post('/register', (req, res) => {
     user.password = bcrypt.hashSync(user.password, 6);
 
     Users.add(user)
-    .then(saved => {
-        const token = generateToken(saved);
+    .then(user => {
+        const token = generateToken(user);
         res.status(201).json({
-            user: { id:saved.id, username:saved.username },
+            user_id: user.id,
+            username: user.username,
             token
         });
     })
@@ -41,6 +42,7 @@ router.post('/login', (req, res) => {
             const token = generateToken(user);
 
             res.status(200).json({ 
+                user_id: user.id,
                 username: user.username,
                 token 
             });
