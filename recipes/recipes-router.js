@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
-const Recipes = require('./recipes-model.js');
+const Recipes = require('../data/models/recipes-model.js');
+const restricted = require('../helpers/auth/restricted-middleware.js');
 
 // Get all recipes
 router.get('/', (req, res) => {
