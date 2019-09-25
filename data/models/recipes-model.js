@@ -5,18 +5,23 @@ module.exports = {
     findBy,
     add,
     findById,
+    findRecipesByUserId,
     update,
     remove
 };
 
 function find() {
     return db('recipes')
-    .join('ingredients', 'recipes.id', 'ingredients.recipe_id')
 }
 
 function findBy(filter) {
     return db('recipes').where(filter);
 }
+
+async function findRecipesByUserId(id) {
+    const recipes = await db('recipes').where({ user_id: id });
+    return recipes;
+  }
 
 function add(recipe) {
     return db('recipes').insert(recipe)
