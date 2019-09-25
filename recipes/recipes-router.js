@@ -14,22 +14,29 @@ router.get('/', (req, res) => {
     });
 });
 
-// Get recipe by user id
-router.get('/:user_id', (req, res) => {
-    const { user_id } = req.params;
+// Get recipe by id
+router.get('/:id', (req, res) => {
+const { id } = req.params;
 
-    Recipes.findByUserId( user_id )
-    .then(recipes => {
-        if (recipes) {
-            res.json(recipes);
-        } else {
-            res.status(404).json({ message: 'Could not find recipes associated with user'})
-        }
+  Recipes.findById(id)
+    .then(recipe => {
+      res.status(200).json(recipe);
     })
-    .catch(err => {
-        res.status(500).json({ message: 'Failed to get recipes' });
-    });
-}); 
+    .catch(error => 
+      res.status(500).send(error));
+});
+
+// Get recipe from specific user id
+router.get('/user/:user_id', (req, res) => {
+  const { user_id } = req.params;
+  
+    Recipes.findRecipesByUserId(user_id)
+      .then(recipe => {
+        res.status(200).json(recipe);
+      })
+      .catch(error => 
+        res.status(500).send(error));
+  });
 
 // Create a new recipe
 router.post('/', (req, res) => {
