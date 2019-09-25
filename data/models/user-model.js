@@ -5,6 +5,7 @@ module.exports = {
   findBy,
   add,
   findById,
+  findRecipesByUserId,
   remove
 };
 
@@ -30,6 +31,11 @@ function findById(id) {
     .where({ id })
     .first();
 };
+
+async function findRecipesByUserId(id) {
+  const recipes = await db('recipes').where({ user_id: id });
+  return recipes;
+}
 
 function remove(id) {
   return db('users')
