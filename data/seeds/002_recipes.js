@@ -13,7 +13,7 @@ exports.seed = function(knex, Promise) {
             author: 'Uncle Jerry',
             instructions: 'Spread peanut butter on one side of a single piece of bread. Spread jelly onto one side of the other piece of bread. Combine sides together and enjoy.',  
             ingredients: 'Bread, Peanut Butter, Jelly', 
-            category: 'Snack', 
+            category: 'Snacks', 
             user_id: '2'  
         },
         { 
@@ -53,7 +53,7 @@ exports.seed = function(knex, Promise) {
             author: 'Marie Katz', 
             instructions: 'Toast bread in toaster. Meanwhile, combine sugar and cinnamon together. Once bread is toasted, spread with butter and coat buttered side with cinnamon sugar. Store remaining cinnamon sugar.',  
             ingredients: 'Sliced Bread, 1/2 cup Sugar, 1 tbsp Ground Cinnamon, 1 tbsp Butter', 
-            category: 'Snack', 
+            category: 'Snacks', 
             user_id: '1'  
         },
         { 
@@ -93,7 +93,7 @@ exports.seed = function(knex, Promise) {
             author: 'Dr. Robotnik', 
             instructions: 'Boil water in pot on high heat. Carefully lower eggs into water. Turn off heat and cover. Let sit for at least 12 minutes and enjoy.',  
             ingredients: 'Eggs, Salt & Pepper', 
-            category: 'Snack', 
+            category: 'Snacks', 
             user_id: '3'  
         },
     ]);
